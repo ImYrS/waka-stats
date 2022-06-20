@@ -13,9 +13,10 @@ from github.GithubException import *
 
 from config import GITHUB_TOKEN
 
-# 设置 HTTP 和 HTTPS 代理
-os.environ['http_proxy'] = 'http://127.0.0.1:1080'
-os.environ['https_proxy'] = 'http://127.0.0.1:1080'
+if os.name == 'nt':
+    # 设置 HTTP 和 HTTPS 代理
+    os.environ['http_proxy'] = 'http://127.0.0.1:1080'
+    os.environ['https_proxy'] = 'http://127.0.0.1:1080'
 
 g = Github(GITHUB_TOKEN)
 
@@ -36,6 +37,7 @@ for repo in me.get_repos():
                 #     commit.commit.author.date < datetime.datetime(2022, 6, 1),
                 #     commit.author.login
                 # )
+
                 # 获取 commit 时间
                 if commit.commit.author.date < datetime.datetime(2022, 5, 20):
                     break
